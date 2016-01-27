@@ -1,5 +1,5 @@
 # Translation app
-app for translating phrases
+app for translating phrases (WIP!!!)
 
 ## install
 
