@@ -4,6 +4,7 @@
   "description": "Boiler plate for react-redux application",
   "main": "''",
   "scripts": {
+    "start": "webpack --progress --profile --colors",
     "build": "webpack --progress --profile --colors",
     "dev": "webpack-dev-server --progress --profile --colors",
     "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js  --recursive",
