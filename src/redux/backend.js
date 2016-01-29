@@ -3,6 +3,7 @@
 */
 import Promise from 'bluebird'
 import Parse from 'parse/node'
+import _, * as Underscore from 'underscore';
 
 //Parse example if you had these classes in parse
 
@@ -89,8 +90,7 @@ export default class Backend {
 		return new Promise((resolve, reject) => {
 		  Parse.User.logIn(username, password, {
 		    success: function(user) {
-		      console.log(user.get('email'))
-		      resolve(user.get('email'))
+		      resolve({email: user.get('email'), PhrasePairs: user.get('PhrasePairs')})
 		    },
 		    error: function(user, error) {
 		      console.log(error)
@@ -127,17 +127,61 @@ export default class Backend {
 	  return new Promise((resolve, reject) => {	
 	    getUrl("http://api.mymemory.translated.net/get?q="+word+"&langpair="+fromLanguage+"|"+toLanguage).then(function(response) {    	
 	    	const result = JSON.parse(response)
-	    	console.log(result)
 	    	if(result.matches){
 			  	resolve(result.responseData.translatedText)
 			  } else{
 			  	reject(result.responseDetails)
 			  }
 			}, function(error) {
-			  console.error("errorkas"+error);
 			  reject(error)
 			});
 	  })
+	}
+
+	saveTranslation(currentTranslation) {
+		return new Promise((resolve, reject) => {
+			const current = Parse.User.current();
+			let phrasePairs = current.get('PhrasePairs');
+			phrasePairs.push(currentTranslation);
+		  current.save(null, {
+		    success: function(current) {
+		      // Execute any logic that should take place after the object is saved.
+		      resolve(current)
+		    },
+		    error: function(current, error) {
+		      // Execute any logic that should take place if the save fails.
+		      // error is a Parse.Error with an error code and message.
+		      reject(error)
+		    }
+		  });
+		})
+	}
+
+	deleteTranslation(objTodelete) {
+		return new Promise((resolve, reject) => {
+			const current = Parse.User.current();
+			const phrasePairs = current.get('PhrasePairs');
+			let pairs = phrasePairs.map(function(obj, index){ 
+					if(Underscore.isEqual(obj, objTodelete)){
+						return;
+						} else {
+						return obj;
+					}
+			  });
+			pairs = Underscore.compact(pairs)
+			current.set('PhrasePairs', pairs)
+		  current.save(null, {
+		    success: function(current) {
+		      // Execute any logic that should take place after the object is saved.
+		      resolve(pairs)
+		    },
+		    error: function(current, error) {
+		      // Execute any logic that should take place if the save fails.
+		      // error is a Parse.Error with an error code and message.
+		      reject(error)
+		    }
+		  });
+		})
 	}
 
 }

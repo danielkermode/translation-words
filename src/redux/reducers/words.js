@@ -23,7 +23,7 @@ export const translateWord = (word, fromLanguage, toLanguage) => {
 				type: TRANSLATE_SUCCESS,
 				result: {
 				  word: word,
-				  fromLangauge: fromLanguage,
+				  fromLanguage: fromLanguage,
 				  toLanguage: toLanguage,
 				  translation: translation
 				}

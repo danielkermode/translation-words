@@ -1,5 +1,5 @@
 
-export const languagePairs = 
+const languagePairs = 
 [
 ["af","Afrikaans"],
 ["ar","Arabic"],
@@ -179,3 +179,12 @@ export const languagePairs =
 ["za","Zhuang; Chuang"],
 ["zh","Chinese"],
 ["zu","Zulu"]]
+
+//clean language pairs to react-select options format
+let cleanedLanguagePairs = []
+for(let i=0; i < languagePairs.length; ++i)
+{
+  cleanedLanguagePairs.push({value: languagePairs[i][0], label: languagePairs[i][1]})
+}
+
+export default cleanedLanguagePairs;

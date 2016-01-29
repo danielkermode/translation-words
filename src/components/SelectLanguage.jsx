@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {languagePairs} from '../redux/languagePairs'
+import cleanedLanguagePairs from '../redux/languagePairs'
 
 // redux
 import {connect} from 'react-redux'
 import {change} from 'redux-form'
 
 import Combobox from 'react-widgets/lib/Combobox'
-
-//clean language pairs to react-select options format
-let cleanedLanguagePairs = []
-for(let i=0; i < languagePairs.length; ++i)
-{
-  cleanedLanguagePairs.push({value: languagePairs[i][0], label: languagePairs[i][1]})
-}
 
 export class SelectLanguage extends Component{
 

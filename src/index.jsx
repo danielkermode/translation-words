@@ -2,11 +2,14 @@ require("../node_modules/bootstrap/dist/css/bootstrap.min.css")
 import React, {Component} from 'react';
 import {Map} from 'immutable';
 
+//containers
 import {HomePageContainer} from './containers/HomePage'
 import {LoginPageContainer} from './containers/LoginPage'
 import {ProfilePageContainer} from './containers/ProfilePage'
 import {RegisterPageContainer} from './containers/RegisterPage'
 import {TranslatePageContainer} from './containers/TranslatePage'
+import {DictionaryPageContainer} from './containers/DictionaryPage'
+
 import ReactDOM from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import {Nav, NavItem, Navbar} from 'react-bootstrap'
@@ -67,16 +70,19 @@ export class App extends Component {
 	              </LinkContainer>
 	              <LinkContainer to="/login">
 	                <NavItem href="#">Login</NavItem>
-	              </LinkContainer>
-	              <LinkContainer to="/translate">
-	                <NavItem href="#">Translate</NavItem>
-	              </LinkContainer>
+	              </LinkContainer>             
               </Nav>}
               {this.props.user && 
               <Nav bsStyle="tabs">
-	              <LinkContainer to="/profile">
-	                <NavItem href="#">Profile</NavItem>
-	              </LinkContainer>
+                <LinkContainer to="/translate">
+                  <NavItem href="#">Translate</NavItem>
+                </LinkContainer>  
+                <LinkContainer to="/dictionary">
+                  <NavItem href="#">Dictionary</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/profile">
+                  <NavItem href="#">Profile</NavItem>
+                </LinkContainer>
 	              	<NavItem onClick={this.logout} href="#">Logout</NavItem>
 	              <p className="navbar-text">Welcome, {this.props.user.username}!</p> 
               </Nav>}
@@ -124,6 +130,7 @@ ReactDOM.render(
 		    <Route path="/register" component={RegisterPageContainer} />
 		    <Route path="/profile" component={ProfilePageContainer} />
 		    <Route path="/translate" component={TranslatePageContainer} />
+        <Route path="/dictionary" component={DictionaryPageContainer} />
 		  </Route>
 		</Router>
 	</Provider>,

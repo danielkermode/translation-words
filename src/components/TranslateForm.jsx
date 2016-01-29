@@ -19,8 +19,8 @@ class TranslateForm extends Component {
   };
 
   translate = () => {
-    this.props.actions.translateWord(this.props.values.word, this.props.values.fromLanguage, this.props.values.toLanguage);
     this.props.actions.resetTranslate()
+    this.props.actions.translateWord(this.props.values.word, this.props.values.fromLanguage, this.props.values.toLanguage);
   };
 
   onEnter = (e) => {
