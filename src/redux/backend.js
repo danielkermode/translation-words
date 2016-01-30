@@ -17,6 +17,7 @@ function getUrl(url) {
   return new Promise(function(resolve, reject) {
     // Do the usual XHR stuff
     var req = new XMLHttpRequest();
+    console.log(req)
     req.open('GET', url);
 
     req.onload = function() {
