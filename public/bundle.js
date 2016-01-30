@@ -31651,7 +31651,7 @@
 			value: function translate(word, fromLanguage, toLanguage) {
 
 				return new _bluebird2.default(function (resolve, reject) {
-					getUrl("http://api.mymemory.translated.net/get?q=" + word + "&langpair=" + fromLanguage + "|" + toLanguage).then(function (response) {
+					getUrl("https://api.mymemory.translated.net/get?q=" + word + "&langpair=" + fromLanguage + "|" + toLanguage).then(function (response) {
 						var result = JSON.parse(response);
 						if (result.matches) {
 							resolve(result.responseData.translatedText);
