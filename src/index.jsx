@@ -1,47 +1,26 @@
-require("../node_modules/bootstrap/dist/css/bootstrap.min.css")
+//require("../node_modules/bootstrap/dist/css/bootstrap.min.css")
 import React, {Component} from 'react';
 import {Map} from 'immutable';
 
 //containers
 import {HomePageContainer} from './containers/HomePage'
-import {LoginPageContainer} from './containers/LoginPage'
-import {ProfilePageContainer} from './containers/ProfilePage'
-import {RegisterPageContainer} from './containers/RegisterPage'
-import {TranslatePageContainer} from './containers/TranslatePage'
-import {DictionaryPageContainer} from './containers/DictionaryPage'
+// import {LoginPageContainer} from './containers/LoginPage'
+// import {ProfilePageContainer} from './containers/ProfilePage'
+// import {RegisterPageContainer} from './containers/RegisterPage'
+// import {TranslatePageContainer} from './containers/TranslatePage'
+// import {DictionaryPageContainer} from './containers/DictionaryPage'
 
 import ReactDOM from 'react-dom'
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, Link } from 'react-router'
 import {Nav, NavItem, Navbar} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 
 /* REDUX */
 import {Provider} from 'react-redux'
-import { syncHistory } from 'react-router-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import multi from 'redux-multi'
-import { reducers } from './redux/reducers/reducer'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as serverActions from './redux/reducers/server'
-
-/****************** Make Store *********************/
-
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory)
-
-const createFinalStore = compose(
-	applyMiddleware(thunk, multi, reduxRouterMiddleware),
-	window.devToolsExtension ? window.devToolsExtension() : f => f
-	// DevTools.instrument()
-)(createStore)
-
-const store = createFinalStore(reducers)
-
-// Required for replaying actions from devtools to work
-//reduxRouterMiddleware.listenForReplays(store)
-/**************************************************/
+import {store} from './redux/store'
 
 export class App extends Component {
 
@@ -124,14 +103,7 @@ export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
 ReactDOM.render(
 	<Provider store={store}>
 		<Router history={browserHistory}>
-		  <Route path="/" component={AppContainer}>
-		    <Route path="/home" component={HomePageContainer} />
-		    <Route path="/login" component={LoginPageContainer} />
-		    <Route path="/register" component={RegisterPageContainer} />
-		    <Route path="/profile" component={ProfilePageContainer} />
-		    <Route path="/translate" component={TranslatePageContainer} />
-        <Route path="/dictionary" component={DictionaryPageContainer} />
-		  </Route>
+		  
 		</Router>
 	</Provider>,
 	document.querySelector("#app")
