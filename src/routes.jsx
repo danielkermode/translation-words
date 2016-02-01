@@ -1,7 +1,7 @@
 import React     from 'react';
 import { Route } from 'react-router';
 //containers
-import {AppContainer} from './index'
+import {AppContainer} from './containers/App'
 import {HomePageContainer} from './containers/HomePage'
 import {LoginPageContainer} from './containers/LoginPage'
 import {ProfilePageContainer} from './containers/ProfilePage'

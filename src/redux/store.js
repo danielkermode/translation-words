@@ -1,21 +1,26 @@
 /****************** Make Store *********************/
-import { syncHistory } from 'react-router-redux'
-import { browserHistory } from 'react-router'
+//import { syncHistory } from 'react-router-redux'
+//import { browserHistory } from 'react-router'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import multi from 'redux-multi'
 import { reducers } from './reducers/reducer'
 
-// Sync dispatched route actions to the history
-const reduxRouterMiddleware = syncHistory(browserHistory)
+export default function (initialState) {
 
-const createFinalStore = compose(
-	applyMiddleware(thunk, multi, reduxRouterMiddleware),
-	window.devToolsExtension ? window.devToolsExtension() : f => f
-	// DevTools.instrument()
-)(createStore)
+	// Sync dispatched route actions to the history
+	//const reduxRouterMiddleware = syncHistory(browserHistory)
+//, reduxRouterMiddleware
+	const createFinalStore = compose(
+		applyMiddleware(thunk, multi),
+		typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
+		// DevTools.instrument()
+	)(createStore)
 
-export const store = createFinalStore(reducers)
+	const store = createFinalStore(reducers, initialState)
+
+	return store;
+}
 
 // Required for replaying actions from devtools to work
 //reduxRouterMiddleware.listenForReplays(store)
